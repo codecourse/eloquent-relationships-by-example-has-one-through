@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Referral;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/admin/referrals', function () {
+    // dd(Referral::find(1)->user()->update(['name' => 'Updated name']));
+
+    return view('referrals.index', [
+        'referrals' => Referral::with('referralCode', 'user')->latest()->get(),
+    ]);
 });
